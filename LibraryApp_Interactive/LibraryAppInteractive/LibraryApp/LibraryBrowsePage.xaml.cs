@@ -6,4 +6,18 @@ public partial class LibraryBrowsePage : ContentPage
     {   
         InitializeComponent();
     }
+    
+    public void OnSearchBook()
+    {
+        
+    }
+    public void OnBorrowBook()
+    {
+        
+    }
+    
+    public void OnReturnBook()
+    {
+        
+    }
 }

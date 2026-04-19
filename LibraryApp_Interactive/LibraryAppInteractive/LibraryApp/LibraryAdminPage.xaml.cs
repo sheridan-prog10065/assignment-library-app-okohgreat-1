@@ -12,4 +12,14 @@ public partial class LibraryAdminPage : ContentPage
     {        
         InitializeComponent();
     }
+
+    public void OnRegisterBook()
+    {
+        
+    }
+
+    public void OnDisplayBookAssets()
+    {
+        
+    }
 }
