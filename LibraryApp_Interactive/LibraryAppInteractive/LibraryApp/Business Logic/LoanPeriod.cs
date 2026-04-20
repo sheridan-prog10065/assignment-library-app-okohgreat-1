@@ -1,3 +1,4 @@
+// LoanPeriod.cs
 namespace LibraryAppInteractive.Business_Logic;
 
 public struct LoanPeriod
@@ -11,6 +12,7 @@ public struct LoanPeriod
         get => _borrowedOn;
         set => _borrowedOn = value;
     }
+
     public DateTime ReturnedOn
     {
         get => _returnedOn;
@@ -28,5 +30,24 @@ public struct LoanPeriod
         _borrowedOn = borrowedOn;
         _dueDate = dueDate;
         _returnedOn = DateTime.MinValue;
+    }
+
+    public TimeSpan GetLoanDuration()
+    {
+        if (_borrowedOn == DateTime.MinValue)
+            return TimeSpan.Zero;
+
+        DateTime dateToCompare = _returnedOn == DateTime.MinValue ? DateTime.Now : _returnedOn;
+        return dateToCompare - _borrowedOn;
+    }
+
+    public TimeSpan GetLatePeriod()
+    {
+        DateTime dateToCompare = _returnedOn == DateTime.MinValue ? DateTime.Now : _returnedOn;
+
+        if (_dueDate == DateTime.MinValue || dateToCompare < _dueDate)
+            return TimeSpan.Zero;
+        else
+            return dateToCompare - _dueDate;
     }
 }

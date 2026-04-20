@@ -4,7 +4,112 @@
              x:Class="LibraryAppInteractive.LibraryBrowsePage"
              Title="Browse Interactive Library">
 			 
-	<Label Text="Browse Library page for the Interactive Library App"
-	       HorizontalOptions="Center"
-	       VerticalOptions="Center"/> 
+	<VerticalStackLayout Padding="20" Spacing="10">
+        
+        <Label 
+            Text="Library Browse Page" 
+            FontSize="24" 
+            FontAttributes="Bold"
+            HorizontalOptions="Center"/>
+
+        <!-- Search -->
+        <Border >
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Search for a Book" FontSize="16" FontAttributes="Bold"/>
+                <Entry 
+                    x:Name="SearchEntry"
+                    Placeholder="Enter book name or ISBN..."/>
+                <Button 
+                    Text="Search" 
+                    Clicked="OnSearchBookClicked"
+                    BackgroundColor="#007AFF"
+                    TextColor="White"
+                    CornerRadius="8"/>
+            </VerticalStackLayout>
+        </Border>
+
+        <!-- Book Details -->
+        <Border >
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Book Details" FontSize="16" FontAttributes="Bold"/>
+                
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Label Text="Name:" FontAttributes="Bold" WidthRequest="80"/>
+                    <Label x:Name="BookNameLabel" Text="N/A" />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Label Text="ISBN:" FontAttributes="Bold" WidthRequest="80"/>
+                    <Label x:Name="BookISBNLabel" Text="N/A" />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Label Text="Author(s):" FontAttributes="Bold" WidthRequest="80"/>
+                    <Label x:Name="BookAuthorsLabel" Text="N/A" />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Label Text="Type:" FontAttributes="Bold" WidthRequest="80"/>
+                    <Label x:Name="BookTypeLabel" Text="N/A" />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Label Text="Status:" FontAttributes="Bold" WidthRequest="80"/>
+                    <Label x:Name="AvailabilityLabel" Text="N/A" />
+                </StackLayout>
+            </VerticalStackLayout>
+        </Border>
+
+        <!-- Book Actions -->
+        <Border>
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Book Actions" FontSize="16" FontAttributes="Bold"/>
+                
+                <Button 
+                    Text="Borrow Book" 
+                    Clicked="OnBorrowBookClicked"
+                    BackgroundColor="#34C759"
+                    TextColor="White"
+                    CornerRadius="8"/>
+
+                <Button 
+                    Text="Return Book" 
+                    Clicked="OnReturnBookClicked"
+                    BackgroundColor="#FF9500"
+                    TextColor="White"
+                    CornerRadius="8"/>
+            </VerticalStackLayout>
+        </Border>
+
+        <!-- Display Book Assets -->
+        <Border >
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Library Assets" FontSize="16" FontAttributes="Bold"/>
+                
+                <CollectionView x:Name="AssetsCollectionView" SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Padding="10" Spacing="5">
+                                <Border>
+                                    <VerticalStackLayout Spacing="5">
+                                        <Label Text="{Binding LibId, StringFormat='Asset ID: {0}'}" FontAttributes="Bold"/>
+                                        <Label Text="{Binding Status, StringFormat='Status: {0}'}" />
+                                        <Label Text="{Binding DueDate, StringFormat='Due: {0:yyyy-MM-dd}'}" />
+                                    </VerticalStackLayout>
+                                </Border>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </Border>
+
+        <!-- Status -->
+        <Label 
+            x:Name="StatusLabel"
+            FontSize="14"
+            TextColor="Green"
+            IsVisible="False"/>
+
+    </VerticalStackLayout>
 </ContentPage>
