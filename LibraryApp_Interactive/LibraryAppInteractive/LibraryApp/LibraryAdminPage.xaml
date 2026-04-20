@@ -4,9 +4,105 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LibraryAppInteractive.LibraryAdminPage"
              Title="Manage Book Assets">
-    <ContentPage.Content>
-        <Label Text="Library Admin page for the Interactive Library App"
-               HorizontalOptions="Center"
-               VerticalOptions="Center"/>         
-    </ContentPage.Content>
+    <Grid RowDefinitions="Auto,*,*" ColumnDefinitions="*,*" RowSpacing="10" ColumnSpacing="10" Padding="20">
+        
+        <Label 
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Text="Library Administration" 
+            FontSize="24" 
+            FontAttributes="Bold"
+            HorizontalOptions="Center"/>
+
+        <!-- Add New Book Section -->
+        <Border 
+            Grid.Row="1"
+            Grid.Column="0"
+            Padding="15" 
+           >
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Add New Book" FontSize="16" FontAttributes="Bold"/>
+                
+                <Label Text="Book Name:" FontAttributes="Bold"/>
+                <Entry x:Name="BookNameEntry" Placeholder="Enter book name"/>
+
+                <Label Text="Book ISBN:" FontAttributes="Bold"/>
+                <Entry x:Name="BookISBNEntry" Placeholder="Enter ISBN"/>
+
+                <Label Text="Book Author(s):" FontAttributes="Bold"/>
+                <Editor x:Name="BookAuthorsEntry" Placeholder="Enter authors (comma-separated)" HeightRequest="80"/>
+
+                <Label Text="Book Type:" FontAttributes="Bold"/>
+                <Picker x:Name="BookTypePicker" Title="Select Book Type">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Paper</x:String>
+                            <x:String>Digital</x:String>
+                            <x:String>Audio</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+
+                <Label Text="Number of Copies:" FontAttributes="Bold"/>
+                <Entry x:Name="NCopiesEntry" Placeholder="Enter number of copies" Keyboard="Numeric"/>
+
+                <Button 
+                    Text="Add Book" 
+                    Clicked="OnRegisterBookClicked"
+                    BackgroundColor="#007AFF"
+                    TextColor="White"
+                    CornerRadius="8"
+                    Margin="0,10,0,0"/>
+            </VerticalStackLayout>
+        </Border>
+
+        <!-- View Book Assets Section -->
+        <Border 
+            Grid.Row="1"
+            Grid.Column="1"
+            Padding="15" 
+            >
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Book Assets" FontSize="16" FontAttributes="Bold"/>
+                
+                <Label Text="Select a book below to view its assets" FontSize="12"/>
+                
+                <Button 
+                    Text="Display Selected Book Assets" 
+                    Clicked="OnDisplayBookAssetsClicked"
+                    BackgroundColor="#34C759"
+                    TextColor="White"
+                    CornerRadius="8"/>
+            </VerticalStackLayout>
+        </Border>
+
+        <!-- Books List Section -->
+        <Border 
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Padding="15" >
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Existing Books" FontSize="16" FontAttributes="Bold"/>
+                
+                <CollectionView x:Name="BooksCollectionView" SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="10" Margin="5">
+                                <VerticalStackLayout Spacing="5">
+                                    <Label Text="{Binding Name, StringFormat='📚 {0}'}" FontAttributes="Bold" FontSize="14"/>
+                                    <Label Text="{Binding ISBN, StringFormat='ISBN: {0}'}" FontSize="12"/>
+                                    <Label Text="{Binding Authors, StringFormat='Authors: {0}'}" FontSize="12"/>
+                                    <Label Text="{Binding BookType, StringFormat='Type: {0}'}" FontSize="12"/>
+                                    <Label Text="{Binding Assets.Count, StringFormat='Copies: {0}'}" FontSize="12"/>
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </Border>
+
+    </Grid>
 </ContentPage>
